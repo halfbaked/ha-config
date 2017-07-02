@@ -1,0 +1,131 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 600
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Paris
+
+  customize:
+    switch.turtle_light_switch:
+      friendly_name: "Turtle Light"
+      icon: mdi:lamp
+
+    switch.dishwasher_switch:
+      friendly_name: "Dishwasher"
+      icon: mdi:washing-machine
+
+    switch.washing_machine_switch:
+      friendly_name: "Washing Machine"
+      icon: mdi:washing-machine
+
+    switch.fridge1_switch:
+      friendly_name: "Kitchen Fridge"
+      icon: mdi:fridge
+
+    sensor.dishwasher_status:
+      icon: mdi:washing-machine
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Uncomment this to add a password (recommended!)
+  # api_password: PASSWORD
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+# Weather Prediction
+sensor:
+  - platform: yr
+  - platform: template
+    sensors:
+      dishwasher_status:
+        value_template: '{{ states.input_select.dishwasher_status.state}}'
+        friendly_name: 'Dishwasher Status'
+
+# Text to speech
+tts:
+  platform: google
+
+group: !include groups.yaml
+automation: !include automations.yaml
+
+zwave:
+   usb_path: /dev/ttyACM0
+   new_entity_ids: true
+
+input_select:
+  dishwasher_status:
+    name: Dishwasher Status
+    options:
+      - Dirty
+      - Running
+      - Drying
+      - Clean
+    initial: Dirty
+  washing_machine_status:
+    name: Washing Machine Status
+    options:
+      - Idle
+      - Running
+      - Finishing
+      - Clean
+    initial: Idle
+
+notify:
+  - name: eamonn
+    platform: pushbullet
+    api_key: !secret pushbullet_api_key_eamonn
+  - name: sam
+    platform: pushbullet
+    api_key: !secret pushbullet_api_key_sam
+  - name: all
+    platform: group
+    services:
+      - service: eamonn
+      - service: sam
+
+mqtt:
+  broker: m20.cloudmqtt.com
+  port: 29715
+  username: !secret mqttcloud_username
+  password: !secret mqttcloud_password
+
+device_tracker:
+  - platform: owntracks
+  - platform: nmap_tracker
+    hosts: 192.168.1.1-253
+    track_new_devices: no

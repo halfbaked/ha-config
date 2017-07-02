@@ -1,0 +1,65 @@
+kids_bedroom:
+  name: "Kids Bedroom"
+  entities:
+    - switch.turtle_light_switch
+    - cover.shutter_a_level
+
+guest_bedroom:
+  name: "Guest Bedroom"
+  entities:
+    - cover.shutter_b_level
+
+kitchen:
+  view: yes
+  name: "Kitchen"
+  entities:
+    - group.dishwasher
+    - group.fridge1
+
+fridge1:
+  name: "Fridge"
+  entities:
+    - switch.fridge1_switch
+    - sensor.fridge1_power
+
+dishwasher:
+  name: "Dishwasher"
+  entities:
+    - switch.dishwasher_switch
+    - sensor.dishwasher_status
+    - sensor.dishwasher_power
+
+washing_machine:
+  name: "Washing Machine"
+  entities:
+    - switch.washing_machine_switch
+    - sensor.washing_machine_power
+
+laundry:
+  view: yes
+  name: "Laundry"
+  entities:
+    - group.washing_machine
+
+bedrooms:
+  view: yes
+  name: "Bedrooms"
+  entities:
+    - group.kids_bedroom
+    - group.guest_bedroom
+
+family:
+  view: yes
+  name: "Family"
+  entities:
+    - device_tracker.eamonn_s7
+    - device_tracker.sam_oplus
+
+# default_view:
+#  view: yes
+#  entities:
+#    - device_tracker.eamonn_s7
+#    - device_tracker.sam_oplus
+#    - light.driveway_lights_level
+#    - sun.sun
+#    - sensor.yr_symbol
