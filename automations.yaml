@@ -6,7 +6,7 @@
     - service: notify.all
       data:
         message: 'Midday off-peak hours are from 12:30 - 15:30'
-        title: 'Off-Peak hours are about to start'    
+        title: 'Off-Peak hours are about to start'
 
 - alias: Remind to put on dishwasher or washing machine for off peak hours
   trigger:

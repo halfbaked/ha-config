@@ -1,13 +1,18 @@
-kids_bedroom:
+bedroom_kids:
   name: "Kids Bedroom"
   entities:
     - switch.turtle_light_switch
     - cover.shutter_a_level
 
-guest_bedroom:
+bedroom_guest:
   name: "Guest Bedroom"
   entities:
     - cover.shutter_b_level
+
+bedroom_parents:
+  name: "Parental Bedroom"
+  entities:
+    - cover.shutter_p_level
 
 kitchen:
   view: yes
@@ -45,8 +50,9 @@ bedrooms:
   view: yes
   name: "Bedrooms"
   entities:
-    - group.kids_bedroom
-    - group.guest_bedroom
+    - group.bedroom_kids
+    - group.bedroom_guest
+    - group.bedroom_parents
 
 family:
   view: yes
@@ -55,11 +61,31 @@ family:
     - device_tracker.eamonn_s7
     - device_tracker.sam_oplus
 
+weather_card:
+  name: weather
+  entities:
+    - sun.sun
+    - sensor.yr_symbol
+    - sensor.owm_cloud_coverage
+    - sensor.owm_condition
+    - sensor.owm_humidity
+    - sensor.owm_pressure
+    - sensor.owm_rain
+    - sensor.owm_snow
+    - sensor.owm_temperature
+    - sensor.owm_wind_speed
+    - weather.openweathermap
+
+outside_view:
+  view: yes
+  name: "Outside"
+  entities:
+    - light.driveway_lights_level
+
 # default_view:
 #  view: yes
 #  entities:
 #    - device_tracker.eamonn_s7
 #    - device_tracker.sam_oplus
+#    - group.weather_card
 #    - light.driveway_lights_level
-#    - sun.sun
-#    - sensor.yr_symbol

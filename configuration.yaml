@@ -31,6 +31,9 @@ homeassistant:
     sensor.dishwasher_status:
       icon: mdi:washing-machine
 
+    light.driveway_lights_level:
+      friendly_name: "Drivway Lights"
+
 # Enables the frontend
 frontend:
 
@@ -75,6 +78,21 @@ sensor:
       dishwasher_status:
         value_template: '{{ states.input_select.dishwasher_status.state}}'
         friendly_name: 'Dishwasher Status'
+  - platform: openweathermap
+    api_key: !secret openweathermap_api_key
+    monitored_conditions:
+      - weather
+      - temperature
+      - wind_speed
+      - humidity
+      - pressure
+      - clouds
+      - rain
+      - snow
+
+weather:
+  platform: openweathermap
+  api_key: !secret openweathermap_api_key
 
 # Text to speech
 tts:
@@ -126,6 +144,6 @@ mqtt:
 
 device_tracker:
   - platform: owntracks
-  - platform: nmap_tracker
-    hosts: 192.168.1.1-253
-    track_new_devices: no
+#  - platform: nmap_tracker
+#    hosts: 192.168.1.1-253
+#    track_new_devices: no
